@@ -6,6 +6,9 @@ import { asyncLocalStorage } from "./async-local-storage";
 import { v4 as uuid } from "uuid";
 import { pick } from "lodash";
 import { obfuscateHeaders } from "./obfuscate-headers";
+import rawBody from "raw-body";
+
+const MAX_PAYLOAD_LENGTH = 1_024 * 10;
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
@@ -26,6 +29,10 @@ export class LoggerMiddleware implements NestMiddleware {
           "originalUrl",
         ]),
         headers: obfuscateHeaders(request.headers),
+        rawBody: await rawBody(request, { limit: MAX_PAYLOAD_LENGTH }).then(
+          String,
+          String
+        ),
       };
       this.logger.info(`← ${res.method} ${res.originalUrl}`, res);
       next();
