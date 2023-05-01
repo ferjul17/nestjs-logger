@@ -27,7 +27,7 @@ export class LoggerInterceptor implements NestInterceptor {
           headers: response.getHeaders(),
           body,
         };
-        this.logger.info(`➲ ${res.statusCode} ${body}`, res);
+        this.logger.info(`→ ${res.statusCode} ${body}`, res);
       })
     );
   }

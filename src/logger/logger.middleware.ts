@@ -27,7 +27,7 @@ export class LoggerMiddleware implements NestMiddleware {
         ]),
         headers: obfuscateHeaders(request.headers),
       };
-      this.logger.info(`⮈ ${res.method} ${res.originalUrl}`, res);
+      this.logger.info(`← ${res.method} ${res.originalUrl}`, res);
       next();
     });
   }

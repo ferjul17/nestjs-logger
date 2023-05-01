@@ -30,7 +30,7 @@ export class LoggerExceptionFilter extends BaseExceptionFilter {
     const response = ctx.getResponse<Response>();
     const error =
       exception instanceof Error ? exception : new Error(String(exception));
-    this.logger.error(`➲ ${response.statusCode}`, error);
+    this.logger.error(`→ ${response.statusCode}`, error);
     super.catch(exception, host);
   }
 }
