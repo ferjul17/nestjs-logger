@@ -4,6 +4,8 @@ import { CoreModule } from "./core.module";
 import { AllExceptionFilter } from "./all.exception-filter";
 import { LoggerExceptionFilter } from "./logger/logger.exception-filter";
 
+import { raw } from "body-parser";
+
 async function bootstrap() {
   const app = await NestFactory.create(CoreModule, {
     bufferLogs: false,
@@ -13,6 +15,7 @@ async function bootstrap() {
     app.get(AllExceptionFilter),
     app.get(LoggerExceptionFilter)
   );
+  app.use("*raw*", raw({ type: "*/*" }));
   await app.listen(3000);
 }
 

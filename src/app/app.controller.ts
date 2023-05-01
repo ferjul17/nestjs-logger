@@ -1,4 +1,6 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Post, RawBodyRequest, Req } from "@nestjs/common";
+import { Request } from "express";
+import { pick } from "lodash";
 
 @Controller()
 export class AppController {
@@ -9,5 +11,9 @@ export class AppController {
   @Get("/fail")
   public fail() {
     throw new Error("something went wrong");
+  }
+  @Post("/raw")
+  public raw(@Req() req: RawBodyRequest<Request>) {
+    console.log("RAW", pick(req, "rawBody", "body"));
   }
 }
